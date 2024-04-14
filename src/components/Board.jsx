@@ -11,6 +11,34 @@ import { calculateWinner, getStatus } from "../Utils";
  * @returns {JSX.Element} - The rendered game board.
  */
 export function Board({ xIsNext, squares, onPlay }) {
+  function renderSquare(val) {
+    return (
+      <Square value={squares[val]} onSquareClick={() => handleClick(val)} />
+    );
+  }
+
+  function renderRow(rowIndex, rowSize) {
+    const sqrsAggregator = [];
+
+    for (let i = 0; i < rowSize; i++) {
+      sqrsAggregator.push(renderSquare(rowIndex * rowSize + i));
+    }
+
+    return <div class="board-row">{sqrsAggregator}</div>;
+  }
+
+  function renderBoard(rowCount, colCount) {
+    const board = []; //  stack of rows
+
+    for (let i = 0; i < rowCount; i++) {
+      board.push(renderRow(i, colCount));
+    }
+
+    return board;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////
+
   function handleClick(i) {
     // Return early if square is already filled OR there's already a winner
     if (squares[i] || calculateWinner(squares)) return;
@@ -26,23 +54,7 @@ export function Board({ xIsNext, squares, onPlay }) {
     <>
       <div className="status">{getStatus(squares, xIsNext)}</div>
 
-      <div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-
-      <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-
-      <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
+      {renderBoard(3, 3)}
     </>
   );
 }

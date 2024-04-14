@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Board } from "./components/Board";
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -9,11 +8,10 @@ import { Board } from "./components/Board";
  * @returns {JSX.Element} - The rendered game component.
  */
 export default function Game() {
-  const [history, setHistory] = useState([Array(9).fill(null)]);  //  vector of vectors
-  const [currentMove, setCurrentMove] = useState(0);              //  current move index
-  const currentSquares = history[currentMove];                    //  current status of squares vector
+  const [history, setHistory] = useState([Array(9).fill(null)]); //  vector of vectors
+  const [currentMove, setCurrentMove] = useState(0); //  current move index
+  const currentSquares = history[currentMove]; //  current status of squares vector
   const xIsNext = currentMove % 2 == 0;
-
 
   /**
    * Handles a play event of the game board
@@ -38,13 +36,18 @@ export default function Game() {
 
   //  List of buttons: map over the history
   const moves = history.map((squares, moveIndex) => {
-    let description = (moveIndex > 0) ? `Go to move ${moveIndex}` : "Go to game start"
+    if (moveIndex == currentMove) {
+      return (<p>You're at move #{currentMove}</p>);
+    }
+    else {
+      let btnDescription = moveIndex > 0 ? `Go to move ${moveIndex}` : "Go to game start";
 
-    return (
-      <li key={moveIndex}>
-        <button onClick={() => jumpTo(moveIndex)}>{description}</button>
-      </li>
-    );
+      return (
+        <li key={moveIndex}>
+          <button onClick={() => jumpTo(moveIndex)}>{btnDescription}</button>
+        </li>
+      );
+    }
   });
 
   return (
