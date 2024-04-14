@@ -12,7 +12,7 @@ export default function Game() {
   const [currentMove, setCurrentMove] = useState(0); //  current move index
   const currentSquares = history[currentMove]; //  current status of squares vector
   const xIsNext = currentMove % 2 == 0;
-
+  const [order, setOrder] = useState(true);
   /**
    * Handles a play event of the game board
    * Function called by Board's "handleClick()"
@@ -50,6 +50,18 @@ export default function Game() {
     }
   });
 
+  function createHistoryList() {
+    if (order) {
+      return (
+        <ol>{moves}</ol>
+      )
+    }
+    else
+      return (
+        <ol reversed>{moves}</ol>
+      )
+  }
+
   return (
     <div className="game">
       {/* Game board */}
@@ -59,7 +71,10 @@ export default function Game() {
 
       {/* Game history */}
       <div className="game-info">
-        <ol>{moves}</ol>
+
+        <button onClick={() => { setOrder(!order) }}>Toggle order</button>
+
+        {createHistoryList()}
       </div>
     </div>
   );
