@@ -10,8 +10,8 @@ import { Board } from "./components/Board";
  */
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);  //  vector of vectors
-  const [currentMove, setCurrentMove] = useState(0);
-  const currentSquares = history[currentMove];
+  const [currentMove, setCurrentMove] = useState(0);              //  current move index
+  const currentSquares = history[currentMove];                    //  current status of squares vector
   const xIsNext = currentMove % 2 == 0;
 
 
