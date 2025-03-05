@@ -28,9 +28,6 @@ A simple Tic-Tac-Toe game built using JavaScript. This project provides an inter
 ## Contributing
 Feel free to fork the repository and submit pull requests with improvements or new features.
 
-## License
-This project is open-source and available under the [MIT License](LICENSE).
-
 ## Tags
 - JavaScript
 - Tic-Tac-Toe
